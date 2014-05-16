@@ -1,20 +1,20 @@
 
-setwd("~/Dropbox/ACA")
+setwd("~/Dropbox/Projects/Need")
 
 library(maps)
 library(mapdata)
-
-library(extrafont)
+library(devEMF)
+#library(extrafont)
 
 d <- read.csv("Data/politics_and_need.csv")
 dem.support <- as.character(d$state[d$gop_governor == 0])
-rep.support <- as.character(d$state[d$gop_governor == 1 & d$support_expansion_new == "Supports"])
-rep.oppose <- as.character(d$state[d$gop_governor == 1 & d$support_expansion_new == "Opposes"])
-rep.weighing <- as.character(d$state[d$gop_governor == 1 & d$support_expansion_new == "Weighing Options"])
+rep.support <- as.character(d$state[d$gop_governor == 1 & d$support_expansion == "Supports"])
+rep.oppose <- as.character(d$state[d$gop_governor == 1 & d$support_expansion == "Opposes"])
+rep.weighing <- as.character(d$state[d$gop_governor == 1 & d$support_expansion == "Weighing Options"])
 
 
-svg("Figures/maps.svg", height = 3, width = 9, family = "Georgia")
-par(mfrow = c(1, 2), oma = c(2.5,0,0,0), mar = c(0,0,0,0))
+tiff("Figures/maps.tiff", height = 3, width = 9, units = "in", res = 300, family = "serif")
+par(mfrow = c(1, 2), oma = c(2.5,0,0,0), mar = c(0,0,0,0), family = "serif")
 map("state", interior = FALSE, lty = 3)
 map('state', 
     add = TRUE, lty = 1, fill = TRUE, col = "grey90", 
