@@ -6,7 +6,7 @@ setwd("~/Dropbox/Projects/Need")
 d <- read.csv("Data/politics_and_need_rescale.csv")
 
 bs.form <- oppose_expansion ~ gop_governor + percent_favorable_aca + gop_leg + percent_uninsured + 
-  income + percent_nonwhite + percent_metro
+  bal2012 + multiplier + percent_nonwhite + percent_metro
 
 
 m <- bayesglm(bs.form, 
@@ -14,15 +14,15 @@ m <- bayesglm(bs.form,
               family = binomial, data = d)
 
 var.names <- c('gop_governor', 'percent_favorable_aca', 'gop_leg', 'percent_uninsured',
-                 'income', 'percent_nonwhite', 'percent_metro', '(Intercept)')
+                 'bal2012', 'multiplier', 'percent_nonwhite', 'percent_metro')
 label.var.names <- c('GOP Governor', 'Percent Favorable to ACA', 'GOP Controlled Legislature', 'Percent Uninsured',
-                     'Income', 'Percent Nonwhite', 'Percent Metropolitan', 'Constant')
+                     'Fiscal Health', 'Medicaid Multiplier', 'Percent Nonwhite', 'Percent Metropolitan')
 state.names <- sort(unique(d$state_abbr))
 
-n.vars <- length(coef(m))
+n.vars <- length(coef(m)) - 1
 n.states <- length(state.names)
 
-tiff("Figures/rc_leave_states_out.tiff", height = 10, width = 8, units = "in", res = 300, family = "serif")
+emf("Figures/rc_leave_states_out.emf", height = 10, width = 8, family = "serif")
 par(mfrow = c(2,4), oma = c(3,4,2,1), mar = c(.75, .75, 1, .5), family = "serif")
 for (var.index in 1:n.vars) {
   eplot(xlim = c(-4, 4), ylim = c(-50, 0), main = label.var.names[var.index], yat = c(-50:0), 

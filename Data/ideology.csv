@@ -1,0 +1,52 @@
+state_abbr,state,ideology
+AL,Alabama,0.244043632
+GA,Georgia,0.135669084
+IA,Iowa,0.093761118
+ID,Idaho,0.332898004
+IL,Illinois,-0.127803096
+IN,Indiana,0.142614463
+KS,Kansas,0.120060506
+KY,Kentucky,0.194089206
+LA,Louisiana,0.190059399
+MA,Massachusetts,-0.342890443
+MD,Maryland,-0.223156938
+AR,Arkansas,0.226741097
+ME,Maine,-0.096092655
+MI,Michigan,-0.01807356
+MN,Minnesota,-0.019057519
+MO,Missouri,0.138513984
+MS,Mississippi,0.226732968
+MT,Montana,0.194765506
+NC,North Carolina,0.051402364
+ND,North Dakota,0.180392361
+NE,Nebraska,0.231803811
+NH,New Hampshire,-0.036215924
+AZ,Arizona,0.104864263
+NJ,New Jersey,-0.167437294
+NM,New Mexico,-0.078612257
+NV,Nevada,0.073271314
+NY,New York,-0.365263787
+OH,Ohio,0.068878722
+OK,Oklahoma,0.319788051
+OR,Oregon,-0.052899799
+PA,Pennsylvania,0.005049107
+RI,Rhode Island,-0.239334478
+SC,South Carolina,0.109491599
+CA,California,-0.1765997
+SD,South Dakota,0.247433599
+TN,Tennessee,0.218964554
+TX,Texas,0.145283225
+UT,Utah,0.292981345
+VA,Virginia,0.011578578
+VT,Vermont,-0.39073616
+WA,Washington,-0.136199756
+WI,Wisconsin,0.037998973
+WV,West Virginia,0.129742033
+WY,Wyoming,0.248082271
+CO,Colorado,0.014228342
+AK,Alaska,0.047233072
+HI,Hawaii,-0.187669903
+CT,Connecticut,-0.23482902
+DC,District of Columbia,-0.929728995
+DE,Delaware,-0.109396074
+FL,Florida,-0.019153483

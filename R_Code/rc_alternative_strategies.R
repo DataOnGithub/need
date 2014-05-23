@@ -1,5 +1,9 @@
 # clear workspace
 rm(list = ls())
+#dev.off()
+
+# set seed
+set.seed(87125081)
 
 # set working directory
 setwd("~/Dropbox/Projects/Need")
@@ -9,8 +13,8 @@ library(arm)
 library(compactr)
 library(brglm)
 library(logistf)
-library(texreg)
 library(R2jags)
+library(devEMF)
 
 d <- read.csv("Data/politics_and_need_rescale.csv")
 
@@ -20,7 +24,7 @@ d <- read.csv("Data/politics_and_need_rescale.csv")
 
 
 f <- oppose_expansion ~ gop_governor + percent_favorable_aca + gop_leg + percent_uninsured + 
-  income + percent_nonwhite + percent_metro
+  bal2012 + multiplier + percent_nonwhite + percent_metro
 
 # maximum likelihood
 m1 <- glm(f, family = binomial, data = d)
@@ -53,7 +57,7 @@ pb <- txtProgressBar(min = 0, max = n.bs, style = 3)
 for (bs.iter in 1:n.bs) {
   bs.samp <- sample(1:nrow(d), nrow(d), replace = TRUE)
   bs.data <- d[bs.samp, ]
-  m6[bs.iter, ] <- coef(bayesglm(f, family = binomial, data = bs.data))
+  m6[bs.iter, ] <- coef(bayesglm(f, family = binomial, data = bs.data, control = glm.control(epsilon = 1e-8, maxit = 10000)))
   setTxtProgressBar(pb, bs.iter)
 } 
 colnames(m6) <- names(coef(m2))
@@ -71,7 +75,6 @@ jags.inits <- function() {
   list("beta" = rnorm(ncol(X), 0, 3))
 }
 
-
 scale <- 1
 m7 <- jags(data = jags.data,
            param = jags.params,
@@ -79,7 +82,7 @@ m7 <- jags(data = jags.data,
            DIC = FALSE,
            model = "R_Code/normal_logit.bugs",
            n.chains = 3,
-           n.iter = 10000)
+           n.iter = 100000)
 plot(m7)
 
 scale <- 2.5
@@ -89,7 +92,7 @@ m8 <- jags(data = jags.data,
            DIC = FALSE,
            model = "R_Code/t10_logit.bugs",
            n.chains = 3,
-           n.iter = 10000)
+           n.iter = 100000)
 plot(m8)
 
 scale <- 2.5
@@ -99,7 +102,7 @@ m9 <- jags(data = jags.data,
            DIC = FALSE,
            model = "R_Code/cauchy_logit.bugs",
            n.chains = 3,
-           n.iter = 10000)
+           n.iter = 100000)
 plot(m9)
 
 
@@ -121,17 +124,17 @@ model.names <- c("Maximum\nLikelihood",
 n.models <- length(model.names)
 
 var.names <- c('gop_governor', 'percent_favorable_aca', 'gop_leg', 'percent_uninsured',
-               'income', 'percent_nonwhite', 'percent_metro', '(Intercept)')
+               'bal2012', 'multiplier', 'percent_nonwhite', 'percent_metro')
 bugs.coef.names <- c("beta[2]", "beta[3]", "beta[4]", "beta[5]", "beta[6]", 
-                     "beta[7]", "beta[8]", "beta[1]")
+                     "beta[7]", "beta[8]", "beta[9]")
 label.var.names <- c('GOP Governor', 'Percent Favorable to ACA', 'GOP Controlled Legislature', 'Percent Uninsured',
-                     'Income', 'Percent Nonwhite', 'Percent Metropolitan', 'Constant')
+                     'Fiscal Health', 'Medicaid Multiplier', 'Percent Nonwhite', 'Percent Metropolitan')
 state.names <- sort(unique(d$state_abbr))
 
-n.vars <- length(all.vars(f))
+n.vars <- length(all.vars(f)) - 1
 n.states <- length(state.names)
 
-tiff("Figures/rc_alternative_strategies.tiff", height = 8, width = 10, units = "in", res = 300, family = "serif")
+emf("Figures/rc_alternative_strategies.emf", height = 8, width = 10, family = "serif")
 par(mfrow = c(2,4), oma = c(3,1,1,1), mar = c(.75, .75, 1, .5), family = "serif")
 for (var.index in 1:n.vars) {
   eplot(xlim = c(-12, 18), ylim = c(-1, -9.5), main = label.var.names[var.index], anny = FALSE, 

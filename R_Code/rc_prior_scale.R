@@ -18,7 +18,7 @@ d <- read.csv("Data/politics_and_need_rescale.csv")
 ################################################################################
 
 f <- oppose_expansion ~ gop_governor + percent_favorable_aca + gop_leg + percent_uninsured + 
-  income + percent_nonwhite + percent_metro
+  bal2012 + multiplier + percent_nonwhite + percent_metro
 
 # cauchy prior + mcmc
 #y <- rep(NA, 50)
@@ -42,15 +42,15 @@ for (i in 1:length(scales)) {
                  DIC = FALSE,
                  model = "R_Code/cauchy_logit.bugs",
                  n.chains = 3,
-                 n.iter = 50000)
+                 n.iter = 100000)
   mcmc.sims[[i]] <- m[[i]]$BUGSoutput$sims.matrix
 }
 
 var.names <- c('GOP Governor', 'Percent Favorable to ACA', 'GOP Controlled Legislature', 'Percent Uninsured',
-               'Income', 'Percent Nonwhite', 'Percent Metropolitan', 'Constant')
-var.order <- c(2:8, 1)
+               'Fiscal Health', 'Medicaid Multiplier', 'Percent Nonwhite', 'Percent Metropolitan')
+var.order <- c(2:9)
 
-tiff("Figures/rc_prior_scale.tiff", height = 4, width = 10, units = "in", res = 300, family = "serif")
+emf("Figures/rc_prior_scale.emf", height = 4, width = 10, family = "serif")
 par(mfrow = c(2,4), oma = c(3,1,2,1), mar = c(.75, .75, 1, .5), family = "serif")
 eplot(xlim = c(-20, 40), ylim = c(length(scales), .5),
       anny = FALSE, xlab = "Logit Coefficient",

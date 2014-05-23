@@ -19,8 +19,9 @@ cv <- function(prior.scale, prior.df) {
   for (i in 1:n) {
     d.train <- d[state.id != i, ]
     d.test <- d[state.id == i, ]
-    m <- bayesglm(oppose_expansion ~ gop_governor + percent_favorable_aca + gop_leg + percent_uninsured + 
-                    income + percent_nonwhite + percent_metro, 
+    f <- oppose_expansion ~ gop_governor + percent_favorable_aca + gop_leg + percent_uninsured + 
+      bal2012 + multiplier + percent_nonwhite + percent_metro
+    m <- bayesglm(f, 
                   family = binomial,
                   control = glm.control(maxit = 100000),
                   prior.df = prior.df,
@@ -64,13 +65,13 @@ loop.it <- function(cv, prior.scale, prior.df) {
 
 # run the estimations
 prior.df <- c(1, 10, Inf)
-prior.scale <- exp(seq(log(.1), log(10), length.out = 100))
+prior.scale <- exp(seq(log(.1), log(10), length.out = 500))
 scores <- loop.it(cv, prior.scale, prior.df)
 # pull out the brier and log scores
 brier <-  scores$brier
 log <- scores$log
 
-tiff("Figures/rc_brier_score.tiff", height = 3, width = 5, units = "in", res = 300, family = "serif")
+emf("Figures/rc_brier_score.emf", height = 3, width = 5, family = "serif")
 # plot of brier scores
 par(mfrow = c(1,1), mar = c(3,4,1,1), oma = c(0,0,0,0),
     family = "serif")
