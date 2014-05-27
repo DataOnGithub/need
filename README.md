@@ -1,1 +1,1 @@
-The latest version of the manuscript is available [here](http://www.carlislerainey.com/files/need.pdf). Replicating these results requires the state-level opinion data set available [here](https://github.com/carlislerainey/ACA_Opinion/blob/master/Data/mrp_est.csv).
+The latest version of the manuscript is available [here](http://www.carlislerainey.com/files/need.pdf). Replicating these results requires the state-level opinion data set available [here](https://github.com/carlislerainey/ACA_Opinion/blob/master/Data/mrp_est.csv), but the R scripts automatically grab these data.
