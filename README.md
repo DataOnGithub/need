@@ -1,1 +1,3 @@
-The latest version of the manuscript is available [here](http://www.carlislerainey.com/files/need.pdf). Replicating these results requires the state-level opinion data set available [here](https://github.com/carlislerainey/ACA_Opinion/blob/master/Data/mrp_est.csv), but the R scripts automatically grab these data.
+tl;dr - In deciding whether to oppose the generous Medicaid dollars offered as part of the Affordable Care Act, governors are extremely responsive to the political context but unresponsive to the level of need in their state.
+
+The latest version of the manuscript is available [here](http://www.carlislerainey.com/files/need.pdf) (the appendix is attached) and the appendix is [here](http://www.carlislerainey.com/files/need_appendix.pdf). Replicating these results requires the state-level opinion data set available [here](https://github.com/carlislerainey/ACA_Opinion/blob/master/Data/mrp_est.csv), but the R scripts automatically grab these data.
